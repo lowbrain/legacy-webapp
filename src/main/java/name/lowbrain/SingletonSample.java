@@ -14,7 +14,6 @@ public class SingletonSample {
 	private SingletonSample() {
 		Properties props = new Properties();
 		try {
-			System.out.println(this.getClass().getName());
 			props.load(this.getClass().getResourceAsStream(this.getClass().getSimpleName() + ".properties"));
 			key1 = props.getProperty("key1");
 			key2 = props.getProperty("key2");

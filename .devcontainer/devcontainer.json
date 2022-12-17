@@ -35,6 +35,7 @@
 	"customizations": {
 		"vscode": {
 			"extensions": [
+				"redhat.vscode-community-server-connector"
 			]
 		}
 	}
