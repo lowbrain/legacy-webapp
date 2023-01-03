@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="name.lowbrain.SingletonSample"%>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page import="name.lowbrain.SingletonSample"%>
 <% 
     SingletonSample ss = SingletonSample.getInstance(); 
     request.setAttribute("key1", ss.getKey1());
