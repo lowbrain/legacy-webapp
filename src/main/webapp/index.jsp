@@ -16,6 +16,13 @@
         DecriptStringSample decript = new DecriptStringSample(DecriptStringSample.class.getResource("publicKey.pem").getFile());
         byte[] decodeByte = decript.decrypt(encodeText);
         request.setAttribute("decode", new String(decodeByte, "Shift-JIS"));
+
+        SignatureSignSample sign = new SignatureSignSample(SignatureSignSample.class.getResource("privateKey.pem").getFile());
+        String base64Sign = sign.sign(xml.toXmlByteArray());
+        request.setAttribute("sign", base64Sign);
+
+        SignatureVerifySample verify = new SignatureVerifySample(SignatureVerifySample.class.getResource("publicKey.pem").getFile());
+        request.setAttribute("verify", verify.verify(xml.toXmlByteArray(), base64Sign));
     } catch (Exception e) {
         e.printStackTrace();
     }
@@ -37,19 +44,27 @@
 <body>
     <dl>
         <dt>プロパティを出力：</dt>
-        <dd><textarea id="properties-key1" cols="50" rows="2" readonly><c:out value='${key1}'/></textarea></dd>
+        <dd><textarea id="properties-key1" cols="200" rows="2" readonly><c:out value='${key1}'/></textarea></dd>
     </dl>
     <dl>
         <dt>XML：</dt>
-        <dd><textarea id="rsa-xml" cols="50" rows="2" readonly><c:out value='${xml}'/></textarea></dd>
+        <dd><textarea id="rsa-xml" cols="200" rows="2" readonly><c:out value='${xml}'/></textarea></dd>
     </dl>
     <dl>
         <dt>ENCODE：</dt>
-        <dd><textarea id="rsa-encode" cols="50" rows="2" readonly><c:out value='${encode}'/></textarea></dd>
+        <dd><textarea id="rsa-encode" cols="200" rows="2" readonly><c:out value='${encode}'/></textarea></dd>
     </dl>
     <dl>
         <dt>DECODE：</dt>
-        <dd><textarea id="rsa-decode" cols="50" rows="2" readonly><c:out value='${decode}'/></textarea></dd>
+        <dd><textarea id="rsa-decode" cols="200" rows="2" readonly><c:out value='${decode}'/></textarea></dd>
+    </dl>
+    <dl>
+        <dt>SIGN：</dt>
+        <dd><textarea id="sign" cols="200" rows="2" readonly><c:out value='${sign}'/></textarea></dd>
+    </dl>
+    <dl>
+        <dt>VERIFY：</dt>
+        <dd><textarea id="verify" cols="200" rows="2" readonly><c:out value='${verify}'/></textarea></dd>
     </dl>
 </body>
 </html>
