@@ -59,6 +59,7 @@ public class XmlSignatureVerifySample {
         XMLSignatureFactory fac = XMLSignatureFactory.getInstance("DOM");
         DOMValidateContext valContext = new DOMValidateContext(publicKey, nl.item(0));
         XMLSignature signature = fac.unmarshalXMLSignature(valContext);
+
         result = signature.validate(valContext);
 
         return result;
@@ -103,7 +104,7 @@ public class XmlSignatureVerifySample {
         String signXml = sign.toXmlString();
         System.out.println(signXml);
 
-        XmlSignatureVerifySample verify = new XmlSignatureVerifySample(signXml, SignatureSignSample.class.getResource("publicKey.pem").getFile());
+        XmlSignatureVerifySample verify = new XmlSignatureVerifySample(signXml.replace("ユーザID", "signXml"), SignatureSignSample.class.getResource("publicKey.pem").getFile());
         System.out.println(verify.verify());
     }
 
