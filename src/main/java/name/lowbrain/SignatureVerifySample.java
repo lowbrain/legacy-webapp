@@ -56,7 +56,7 @@ public class SignatureVerifySample {
             Signature verify = Signature.getInstance("SHA256withRSA");
             verify.initVerify(publicKey);
             verify.update(message);
-            result = verify.verify(Base64.getDecoder().decode(base64Sign));
+            result = verify.verify(Base64.getUrlDecoder().decode(base64Sign));
         } catch (NoSuchAlgorithmException | InvalidKeyException | SignatureException e) {
             throw new RuntimeException(e);
         }

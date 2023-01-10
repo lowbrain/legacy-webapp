@@ -56,7 +56,7 @@ public class SignatureSignSample {
             Signature sign = Signature.getInstance("SHA256withRSA");
             sign.initSign(this.privateKey);
             sign.update(message);
-            base64Sign = Base64.getEncoder().encodeToString(sign.sign());
+            base64Sign = Base64.getUrlEncoder().encodeToString(sign.sign());
         } catch(NoSuchAlgorithmException | InvalidKeyException | SignatureException e) {
             throw new RuntimeException(e);
         }

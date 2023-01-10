@@ -10,8 +10,8 @@ public class AuthInfoToken {
 
     public AuthInfoToken(String base64Token) {
         String[] tokens = base64Token.split("\\.");
-        this.data = Base64.getDecoder().decode(tokens[0]);
-        this.sign = Base64.getDecoder().decode(tokens[1]);
+        this.data = Base64.getUrlDecoder().decode(tokens[0]);
+        this.sign = Base64.getUrlDecoder().decode(tokens[1]);
     }
 
     private AuthInfoToken(byte[] data, byte[] sign) {
@@ -20,8 +20,8 @@ public class AuthInfoToken {
     }
 
     public String toBase64Token() {
-        String token1 = Base64.getEncoder().encodeToString(data);
-        String token2 = Base64.getEncoder().encodeToString(sign);
+        String token1 = Base64.getUrlEncoder().encodeToString(data);
+        String token2 = Base64.getUrlEncoder().encodeToString(sign);
         return token1 + "." + token2;
     }
 

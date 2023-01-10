@@ -1,4 +1,4 @@
-<%@page language="java" contentType="text/html; charset=Shift_JIS" pageEncoding="UTF-8"%>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="name.lowbrain.*"%>
 <%@page import="name.lowbrain.dsig.*"%>
@@ -43,11 +43,44 @@
 <meta charset="Shift_JIS">
 <title>Insert title here</title>
 <script>
+    var decode = function(input) {
+        input = input
+            .replace(/-/g, '+')
+            .replace(/_/g, '/');
+
+        var pad = input.length % 4;
+        if(pad) {
+          if(pad === 1) throw new Error('InvalidLengthError: Input base64url string is the wrong length to determine padding');
+          input += new Array(5-pad).join('=');
+        }
+
+        return input;
+    }
+
+    var xmlout = function(input) {
+        const token = input.split(".");
+
+        const bin = atob(decode(token[0]));
+        let buffer = new Uint8Array(bin.length);
+        for (let i = 0; i < bin.length; i++) {
+            buffer[i] = bin.charCodeAt(i);
+        }
+        const utf8decoder = new TextDecoder();
+        console.log(utf8decoder.decode(buffer));
+
+        const parser = new window.DOMParser();
+        const xmlData = parser.parseFromString( utf8decoder.decode(buffer) , "text/xml");
+        const userId = xmlData.getElementsByTagName("userid");
+
+        console.log(userId.item(0).textContent);
+    }
+
     window.addEventListener('DOMContentLoaded', () => {
         console.log(document.getElementById('properties-key1').value);
         console.log(document.getElementById('rsa-xml').value);
         console.log(document.getElementById('rsa-encode').value);
         console.log(document.getElementById('rsa-decode').value);
+        xmlout(document.getElementById('out-token').value);
     });
 </script>
 </head>
