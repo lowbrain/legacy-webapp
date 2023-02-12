@@ -2,7 +2,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <% 
     try {
-        String url = request.getParameter("return_url");
+        String url = request.getParameter("redirect_url");
         String auth = request.getParameter("auth_token");
         String redirectUlr = url + "?auth=" + auth;
         response.sendRedirect(redirectUlr);
