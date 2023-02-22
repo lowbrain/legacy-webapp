@@ -28,9 +28,67 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>LOGIN</title>
+<style type="text/css">
+.btnripple{
+    /*波紋の基点とするためrelativeを指定*/
+    position: relative;
+    /*はみ出す波紋を隠す*/
+    overflow: hidden;
+    /*ボタンの形状*/
+    width: 320px;
+    height: 320px;
+    text-align:center;
+    font-size: 64px;
+    line-height: 320px;
+    text-decoration: none;
+    display:inline-block;
+    background: #6750A4;
+    color: #fff;
+    border-radius: 50%;
+    outline: none;
+}
+
+.btnripple::after {
+    content: "";
+    /*絶対配置で波紋位置を決める*/
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    /*波紋の形状*/
+    background: radial-gradient(circle, #fff 10%, transparent 10%) no-repeat 50%;
+    transform: scale(10, 10);
+    /*はじめは透過0に*/
+    opacity: 0;
+    /*アニメーションの設定*/
+    transition: transform 0.3s, opacity 1s;
+}
+
+/*クリックされたあとの形状の設定*/
+    .btnripple:active::after {
+    transform: scale(0, 0);
+    transition: 0s;
+    opacity: 0.3;
+}
+
+
+/*========= レイアウトのためのCSS ===============*/
+
+body{
+    vertical-align:middle; 
+    padding: 100px 0;
+    text-align: center;
+}
+
+p{
+    margin: 0 0 10px 0;
+}
+
+</style>
 </head>
-<body onload="init()" onunload="subclose()">
+<body onunload="subclose();">
     <form name="formTest" action="" method="post">
         <input type="hidden" name="popup_url"    value="${popup_url}"    />
         <input type="hidden" name="auth_url"     value="${auth_url}"     />
@@ -38,6 +96,7 @@
         <input type="hidden" name="redirect_url" value="${redirect_url}" />
         <input type="hidden" name="auth_token"   value="${auth_token}"   />
     </form>
+    <a href="javascript:init();" class="btnripple">LOGIN!!</a>
 <script>
 var subwin = null;
 function init() {
