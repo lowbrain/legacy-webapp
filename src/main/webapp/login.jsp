@@ -67,7 +67,7 @@
 }
 
 /*クリックされたあとの形状の設定*/
-    .btnripple:active::after {
+.btnripple:active::after {
     transform: scale(0, 0);
     transition: 0s;
     opacity: 0.3;
@@ -77,6 +77,7 @@
 /*========= レイアウトのためのCSS ===============*/
 
 body{
+    font-family: "Arial Black", 游ゴシック, "Yu Gothic", メイリオ, Meiryo, Verdana, Helvetica, Arial, sans-serif;
     vertical-align:middle; 
     padding: 100px 0;
     text-align: center;
@@ -96,24 +97,31 @@ p{
         <input type="hidden" name="redirect_url" value="${redirect_url}" />
         <input type="hidden" name="auth_token"   value="${auth_token}"   />
     </form>
-    <a href="javascript:init();" class="btnripple">LOGIN!!</a>
+    <a id="login" class="btnripple">LOGIN!!</a>
 <script>
-var subwin = null;
-function init() {
-    subwin = window.open(formTest.popup_url.value, "_blank", "popup");
-    setTimeout("next()", 1000);
-}
 
-function next() {
+let subwin = null;
+const login = document.getElementById("login");
+
+window.addEventListener("unload", () => {
     if(subwin) subwin.close();
+});
+
+const next = () => {
+    if(subwin) {
+        login.style.visibility = "hidden";
+        subwin.close();
+    }
     formTest.action = formTest.auth_url.value;
     formTest.submit();
     return;
-}
+};
 
-function subclose() {
-    if(subwin) subwin.close();
-}
+login.addEventListener("click", () => {
+    subwin = window.open(formTest.popup_url.value, "_blank", "popup");
+    setTimeout(next, 1000);
+});
+
 </script>
 </body>
 </html>
