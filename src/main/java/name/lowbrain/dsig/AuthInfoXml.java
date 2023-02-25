@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -26,7 +27,7 @@ public class AuthInfoXml {
     private final Document doc;
 
     public AuthInfoXml(String _userId) {
-        this(_userId, LocalDateTime.now(), null);
+        this(_userId, LocalDateTime.now(ZoneId.of("Asia/Tokyo")), null);
     }
 
     public AuthInfoXml(String _userId, LocalDateTime _timestamp) {

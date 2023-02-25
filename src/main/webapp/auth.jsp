@@ -10,7 +10,7 @@
         String redirect_url = request.getParameter("redirect_url");
         request.setAttribute("redirect_url", redirect_url);
 
-        AuthInfoXml xml = new AuthInfoXml("ユーザID");
+        AuthInfoXml xml = new AuthInfoXml("名無しの権兵衛");
         AuthInfoToken outToken = AuthInfoToken.newInstance(xml);
         String out1 = outToken.toBase64Token();
         request.setAttribute("auth_token", out1);
